@@ -1,15 +1,18 @@
 {
-  "build": {
-    "env": {
-      "DJANGO_SETTINGS_MODULE": "customer_service_bot.settings.production"
-    },
-    "cmd": "pip install -r requirements.txt && python manage.py collectstatic --noinput"
-  },
+  "version": 2,
+  "builds": [
+    {
+      "src": "customer_service_bot/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.9"
+      }
+    }
+  ],
   "routes": [
     { "src": "/static/(.*)", "dest": "/static/$1" },
-    { "src": "/(.*)", "dest": "chat.html" }
+    { "src": "/(.*)", "dest": "customer_service_bot/wsgi.py" }
   ]
 }
-
 
   
